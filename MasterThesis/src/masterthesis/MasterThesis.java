@@ -588,9 +588,9 @@ public class MasterThesis {
      * @throws IOException
      */
     public static void separator() throws IOException {
-        file = new File("C:\\Users\\Matt\\university\\Aalborg\\master\\data\\paper_relaxations_data\\data.csv");
+        file = new File("C:\\input_file");
         BufferedReader br = new BufferedReader(new FileReader(file));
-        File dir = new File("C:\\Users\\Matt\\university\\Aalborg\\master\\data\\paper_relaxations_data\\records");
+        File dir = new File("C:\\directory");
 
         if (!dir.exists()) {
             dir.mkdir();
@@ -616,7 +616,7 @@ public class MasterThesis {
                     System.err.println(outfile.getAbsolutePath() + ":\tSameNameException!");
                     return;
                 }
-                outfile = new File("C:\\Users\\Matt\\university\\Aalborg\\master\\data\\paper_relaxations_data\\records\\"
+                outfile = new File("C:\\output_file"
                         + records.get(0).split(DS)[0] + ".csv");
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(outfile))) {
                     for (String record : records) {
@@ -687,6 +687,7 @@ public class MasterThesis {
             p2m4 = p2m1 - 3;
 
             //And 5 point Lagrange interpolation to get density!
+            //  This is adjusted to the middle point; this is where this method is the most exact.
             density = p * (p - 2) * p2m1 * dens[j - 2] / 24
                     - p * (p - 1) * p2m4 * dens[j - 1] / 6
                     + p2m1 * p2m4 * dens[j] / 4
@@ -696,7 +697,8 @@ public class MasterThesis {
             //Now calculating viscosity; this is a written out mathematical formulae.
             visc = visc20 * Math.pow(10,
                     (20 - x) / (x + 96) * (1.2364 - 0.00137 * (20 - x) + 0.0000057 * (20 - x) * (20 - x)));
-
+            
+            //Again, mathematical formula.
             TMP = g * density * Double.valueOf(tokens[7]) / 100;
             
             //Physical constants.
